@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/product-attributes', [\App\Http\Controllers\ProductAttributeController::class, 'index']);
+Route::post('/product-attributes', [\App\Http\Controllers\ProductAttributeController::class, 'store']);
+Route::delete('/product-attributes/{id}', [\App\Http\Controllers\ProductAttributeController::class, 'destroy']);
