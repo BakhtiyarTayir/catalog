@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
@@ -20,7 +18,6 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        // Валидация входящих данных
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -31,16 +28,14 @@ class RegisterController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-        // Создание нового пользователя
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        // Генерация токена (если вы используете Sanctum)
         $token = $user->createToken('api_token')->plainTextToken;
 
-        return response()->json(['token' => $token], 201);
+        return response()->json(['token' => $token, 'message' => 'Successfully registered' ], 201);
     }
 }
