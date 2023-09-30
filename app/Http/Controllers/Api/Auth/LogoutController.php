@@ -16,8 +16,8 @@ class LogoutController extends Controller
      */
     public function logout(Request $request)
     {
-        // Предполагая, что вы используете Sanctum
-        $request->user()->currentAccessToken()->delete();
+        
+        Auth::user()->tokens()->where('id', Auth::user()->currentAccessToken()->id)->delete();
 
         return response()->json(['message' => 'Logged out successfully'], 200);
     }

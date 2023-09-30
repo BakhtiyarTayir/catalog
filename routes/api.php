@@ -37,6 +37,22 @@ Route::group(['namespace' => 'auth'], function (){
 
 });
 
+Route::group(['namespace' => 'product'], function () {
+    Route::get('/products', [\App\Http\Controllers\Api\Product\ProductController::class, 'index']);
+    Route::get('/products/{id}', [\App\Http\Controllers\Api\Product\ProductController::class,'show']);
+    Route::post('/products', [\App\Http\Controllers\Api\Product\ProductController::class,'store']);
+    Route::put('/products/{id}', [\App\Http\Controllers\Api\Product\ProductController::class, 'update']);
+    Route::delete('/products/{id}', [\App\Http\Controllers\Api\Product\ProductController::class, 'destroy']);
+});
+
+Route::group(['namespace' => 'category'], function () {
+    Route::get('/categories', [\App\Http\Controllers\Api\CategoryController::class, 'index']);
+    Route::get('/categories/{id}', [\App\Http\Controllers\Api\CategoryController::class, 'show']);
+    Route::post('/categories', [\App\Http\Controllers\Api\CategoryController::class, 'store']);
+    Route::put('/categories/{id}', [\App\Http\Controllers\Api\CategoryController::class, 'update']);
+    Route::delete('/categories/{id}', [\App\Http\Controllers\Api\CategoryController::class, 'destroy']);
+});
+
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/get', [\App\Http\Controllers\GetController::class, '__invoke']);
 });
