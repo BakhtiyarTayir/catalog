@@ -17,16 +17,16 @@ class CategoriesTableSeeder extends Seeder
     public function run(): void
     {
         $parentCategories = [
-            ['name' => 'Electronics'],
-            ['name' => 'Fashion'],
-            ['name' => 'Home & Garden'],
+            'Electronics',
+            'Fashion',
+            'Home & Garden',
         ];
 
         $parentIds = [];
         foreach ($parentCategories as $parentCategory) {
             $id = DB::table('categories')->insertGetId([
-                'name' => $parentCategory['name'],
-                'slug' => \Str::slug($parentCategory['name']),
+                'name' => $parentCategory,
+                'slug' => \Str::slug($parentCategory),
                 'parent_id' => null,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),  
@@ -35,23 +35,45 @@ class CategoriesTableSeeder extends Seeder
         }
 
         $childCategories = [
-            ['name' => 'Smartphones', 'parent_id' => $parentIds[0]],
-            ['name' => 'Laptops', 'parent_id' => $parentIds[0]],
-            ['name' => 'Men Clothing', 'parent_id' => $parentIds[1]],
-            ['name' => 'Women Clothing', 'parent_id' => $parentIds[1]],
-            ['name' => 'Furniture', 'parent_id' => $parentIds[2]],
-            ['name' => 'Decor', 'parent_id' => $parentIds[2]],
+            ['Smartphones', $parentIds[0]],
+            ['Laptops', $parentIds[0]],
+            ['Men Clothing', $parentIds[1]],
+            ['Women Clothing', $parentIds[1]],
+            ['Furniture', $parentIds[2]],
+            ['Decor', $parentIds[2]],
         ];
 
-        foreach ($childCategories as $childCategory) {
+        $childIds = [];
+        foreach ($childCategories as [$name, $parentId]) {
+            $id = DB::table('categories')->insertGetId([
+                'name' => $name,
+                'slug' => \Str::slug($name),
+                'parent_id' => $parentId,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+            $childIds[] = $id;
+        }
+
+        $grandChildCategories = [
+            ['Apple', $childIds[0]],
+            ['Samsung', $childIds[0]],
+            ['Dell', $childIds[1]],
+            ['HP', $childIds[1]],
+            ['T-Shirts', $childIds[2]],
+            ['Jeans', $childIds[2]],
+            ['Chairs', $childIds[4]],
+            ['Tables', $childIds[4]],
+        ];
+
+        foreach ($grandChildCategories as [$name, $parentId]) {
             DB::table('categories')->insert([
-                'name' => $childCategory['name'],
-                'slug' => \Str::slug($childCategory['name']),
-                'parent_id' => $childCategory['parent_id'],
+                'name' => $name,
+                'slug' => \Str::slug($name),
+                'parent_id' => $parentId,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
         }
     }
-
 }

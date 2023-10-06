@@ -15,6 +15,11 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
+    
+    public function allChildren(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Category::class, 'parent_id')->with('allChildren');
+    }
 
     public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

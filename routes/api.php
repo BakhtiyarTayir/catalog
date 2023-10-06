@@ -38,11 +38,11 @@ Route::group(['namespace' => 'auth'], function (){
 });
 
 Route::group(['namespace' => 'product'], function () {
-    Route::get('/products', [\App\Http\Controllers\Api\Product\ProductController::class, 'index']);
-    Route::get('/products/{id}', [\App\Http\Controllers\Api\Product\ProductController::class,'show']);
-    Route::post('/products', [\App\Http\Controllers\Api\Product\ProductController::class,'store']);
-    Route::put('/products/{id}', [\App\Http\Controllers\Api\Product\ProductController::class, 'update']);
-    Route::delete('/products/{id}', [\App\Http\Controllers\Api\Product\ProductController::class, 'destroy']);
+    Route::get('/products', [\App\Http\Controllers\Api\ProductController::class, 'index']);
+    Route::get('/products/{id}', [\App\Http\Controllers\Api\ProductController::class,'show']);
+    Route::post('/products', [\App\Http\Controllers\Api\ProductController::class,'store']);
+    Route::put('/products/{id}', [\App\Http\Controllers\Api\ProductController::class, 'update']);
+    Route::delete('/products/{id}', [\App\Http\Controllers\Api\ProductController::class, 'destroy']);
 });
 
 Route::group(['namespace' => 'category'], function () {
