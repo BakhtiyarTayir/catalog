@@ -43,6 +43,10 @@ Route::group(['namespace' => 'product'], function () {
     Route::post('/products', [\App\Http\Controllers\Api\ProductController::class,'store']);
     Route::put('/products/{id}', [\App\Http\Controllers\Api\ProductController::class, 'update']);
     Route::delete('/products/{id}', [\App\Http\Controllers\Api\ProductController::class, 'destroy']);
+
+    Route::get('products', [\App\Http\Controllers\Api\ProductController::class, 'getProducts']);
+    Route::get('products-slug/{slug}', [\App\Http\Controllers\Api\ProductController::class, 'getProductBySlug']);
+
 });
 
 Route::group(['namespace' => 'category'], function () {
@@ -54,8 +58,12 @@ Route::group(['namespace' => 'category'], function () {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get('/get', [\App\Http\Controllers\GetController::class, '__invoke']);
+    Route::post('/cart/add', [\App\Http\Controllers\Api\CartController::class, 'addToCart']);
+    Route::put('/cart/item/{itemId}',[\App\Http\Controllers\Api\CartController::class, 'updateCartItem']);
+    Route::delete('/cart/item/{itemId}', [\App\Http\Controllers\Api\CartController::class, 'removeCartItem']);
 });
+
+
 
 Route::post('/personal-access-tokens', [PersonalAccessTokenController::class, 'store']);
 
