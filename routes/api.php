@@ -63,6 +63,16 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('/cart/item/{itemId}', [\App\Http\Controllers\Api\CartController::class, 'removeCartItem']);
 });
 
+// Для аутентифицированных и неаутентифицированных пользователей
+Route::post('/order', [\App\Http\Controllers\Api\OrderController::class, 'placeOrder']);
+
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/orders', [\App\Http\Controllers\Api\OrderController::class, 'listOrders']);
+
+});
+
+
 
 
 Route::post('/personal-access-tokens', [PersonalAccessTokenController::class, 'store']);
