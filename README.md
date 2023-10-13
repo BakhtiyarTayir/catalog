@@ -52,7 +52,6 @@ DB_PASSWORD=your_database_password
 - Регистрация: `POST /api/register`
 - Авторизация: `POST /api/login`
 
-## Роуты API
 
 ### Работа с товарами
 
@@ -77,22 +76,6 @@ DB_PASSWORD=your_database_password
 #### Получение товара по slug
 - `GET /api/products-slug/{slug}`
 
-### Работа с категориями
-
-#### Получение списка категорий
-- `GET /api/categories`
-
-#### Получение категории по ID
-- `GET /api/categories/{id}`
-
-#### Добавление новой категории
-- `POST /api/categories`
-
-#### Обновление информации о категории
-- `PUT /api/categories/{id}`
-
-#### Удаление категории
-- `DELETE /api/categories/{id}`
 
 ### Работа с атрибутами товаров
 
